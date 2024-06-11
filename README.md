@@ -1,4 +1,4 @@
-# soltastic
+# solanace
 A high-level Python library to interact with the Solana Blockchain.
 
 ### Features
@@ -10,5 +10,5 @@ A high-level Python library to interact with the Solana Blockchain.
 - Meaningful error messages
 - RPC Performance Testing & Profiling
 
-[Documentation](https://soltastic.elia.vc)\
+[Documentation](https://solanace.elia.vc)\
 [Support](https://discord.gg/eternityclan)
