@@ -1,2 +1,7 @@
+# IDEs
 .idea
 .vscode
+
+# Poetry
+dist
+venv

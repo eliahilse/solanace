@@ -1,12 +1,15 @@
 [tool.poetry]
 name = "solanace"
-version = "0.1.0"
-description = ""
+version = "0.0.2"
+description = "A high-level Python library to effortlessly interact with the Solana blockchain (wip)"
 authors = ["Elia Hilse"]
+license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+solders = "^0.26.0"
+solana = "^0.36.6"
 
 
 [build-system]
