@@ -1,15 +1,15 @@
 from solana.rpc.types import TokenAccountOpts
 from solders.pubkey import Pubkey
 
-from solana.rpc.api import Client
+from solana.rpc.api import Client as ClientAPI
 from solana.transaction import Transaction
 import json
 from functools import partial
 
 class Client:
     """Synchronous client implementation, fully gevent compatible."""
-    def __init__(self, **client_urls: str):
-        self.clients = [Client(client_url) for client_url in client_urls]
+    def __init__(self, client_urls:list[str]):
+        self.clients = [ClientAPI(client_url) for client_url in client_urls]
 
     def _client_request(self, func):
         """Attempt a sync request across all clients until successful."""
@@ -37,15 +37,10 @@ class Client:
 
         associated_token_accounts = json.loads(associated_token_accounts_json)
 
-        total_token_balance = 0
-
-        for token_account in associated_token_accounts["result"]["value"]:
-
-            balance = int(token_account["account"]["data"]["parsed"]["info"]["tokenAmount"]["amount"])
-            decimals = int(token_account["account"]["data"]["parsed"]["info"]["tokenAmount"]["decimals"])
-
-            balance_in_token = balance * (10 ** -decimals)
-            total_token_balance += balance_in_token
+        total_token_balance = sum(
+            int(token_account["account"]["data"]["parsed"]["info"]["tokenAmount"]["amount"]) * 
+            (10 ** -int(token_account["account"]["data"]["parsed"]["info"]["tokenAmount"]["decimals"]))
+            for token_account in associated_token_accounts["result"]["value"]
+        )
 
         return total_token_balance
-
